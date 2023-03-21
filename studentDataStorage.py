@@ -46,78 +46,89 @@ def add():
 
 
 def delete():
-    rool = input("Enter the roll number to be deleted")
-    file = open(filePath, "r")
-    all = file.readlines()  # stores all data in one variable
-    file.close()
+    try:
+        rool = input("Enter the roll number to be deleted")
+        file = open(filePath, "r")
+        all = file.readlines()  # stores all data in one variable
+        file.close()
     # rewriting all data except one to eb delted in the file
-    file = open(filePath, "w")
-    deleted = "Data to be deleted is not found"
-    for data in all:
-        # gets the roll number 1 is needed to restrict the size of the array
-        d = data.split("\t", 1)
-        if (d[0] != rool):
-            file.writelines(data)
+        file = open(filePath, "w")
+        deleted = "Data to be deleted is not found"
+        for data in all:
+            # gets the roll number 1 is needed to restrict the size of the array
+            d = data.split("\t", 1)
+            if (d[0] != rool):
+                file.writelines(data)
+            else:
+                deleted = data
+        file.close()
+        if (deleted == "Data to be deleted is not found"):
+            print(deleted)
         else:
-            deleted = data
-    file.close()
-    if (deleted == "Data to be deleted is not found"):
-        print(deleted)
-    else:
-        print("The deleted record is", deleted)
+            print("The deleted record is", deleted)
+    except:
+        print("The File Does not have any data")
 
 
 def update():
-    rool = input("Enter the roll number to be updated:")
-    file = open(filePath, "r")
-    all = file.readlines()  # stores all data in one variable
-    file.close()
-    file = open(filePath, "w")
-    found = False
-    for data in all:
-        d = data.split("\t", 1)
+    try:
+        rool = input("Enter the roll number to be updated:")
+        file = open(filePath, "r")
+        all = file.readlines()  # stores all data in one variable
+        file.close()
+        file = open(filePath, "w")
+        found = False
+        for data in all:
+            d = data.split("\t", 1)
 
-        if (d[0] == rool):
-            found = True
-            nn = input("New Name:")
-            ne = input("New email:")
-            np = input("New phone number:")
-            ncg = input("Enter the new cg:")
-            file.writelines(d[0]+"\t"+nn+"\t"+ne+"\t"+np+"\t"+ncg+"\n")
+            if (d[0] == rool):
+                found = True
+                nn = input("New Name:")
+                ne = input("New email:")
+                np = input("New phone number:")
+                ncg = input("Enter the new cg:")
+                file.writelines(d[0]+"\t"+nn+"\t"+ne+"\t"+np+"\t"+ncg+"\n")
+            else:
+                file.writelines(data)
+        file.close()
+        if found:
+            print("Data was updated")
         else:
-            file.writelines(data)
-    file.close()
-    if found:
-        print("Data was updated")
-    else:
-        print("The rool number entered in not found in the file")
+            print("The rool number entered in not found in the file")
+    except:
+        print("The file is Empty")
 
 
 def search():
-    rool = input("Enter the roll number to be searched:")
-    file = open(filePath, "r")
-    all = file.readlines()  # stores all data in one variable
-    file.close()
-    found = False
-    for data in all:
-        d = data.split("\t", 1)
-        if d[0] == rool:
-            found = True
-            foundata = data
-    if found:
-        print(foundata)
-    else:
-        print("The roll number entered is not found in the file")
+    try:
+        rool = input("Enter the roll number to be searched:")
+        file = open(filePath, "r")
+        all = file.readlines()  # stores all data in one variable
+        file.close()
+        found = False
+        for data in all:
+            d = data.split("\t", 1)
+            if d[0] == rool:
+                found = True
+                foundata = data
+        if found:
+            print(foundata)
+        else:
+            print("The roll number entered is not found in the file")
+    except:
+        print("The file is empty ")
 
 
 def allData():
-    print("The complete data in the file is:")
-    file = open(filePath, "r")
-    all = file.readlines()
-    file.close()
-    for data in all:
-        print(data)
-
+    try:
+        print("The complete data in the file is:")
+        file = open(filePath, "r")
+        all = file.readlines()
+        file.close()
+        for data in all:
+            print(data)
+    except:
+        print("The file has NO data")
 
 def main():
     print("Welcome to student details portal")
